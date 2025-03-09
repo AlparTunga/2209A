@@ -5,18 +5,18 @@ using ImGuiNET;
 
 public class DearImGuiSliding : MonoBehaviour
 {
-    public GameObject[] boxes; // Kutularýn referanslarý
-    private static GameObject selectedBox; // Þu an seçili olan kutu
-    private static float forceOnBox = 25f; // Varsayýlan kuvvet deðeri
+    public GameObject[] boxes; // KutularÄ±n referanslarÄ±
+    private static GameObject selectedBox; // Åžu an seÃ§ili olan kutu
+    private static float forceOnBox = 25f; // VarsayÄ±lan kuvvet deÄŸeri
 
-    private Dictionary<GameObject, Rigidbody> boxRigidbodies; // Kutularýn Rigidbody bileþenleri
+    private Dictionary<GameObject, Rigidbody> boxRigidbodies; // KutularÄ±n Rigidbody bileÅŸenleri
     private bool applyForce;
 
-    private static bool isLayoutRegistered = false; // Layout'un birden fazla kez kaydedilmesini önlemek için
+    private static bool isLayoutRegistered = false; // Layout'un birden fazla kez kaydedilmesini Ã¶nlemek iÃ§in
 
     void Start()
     {
-        // Kutularýn Rigidbody bileþenlerini sakla
+        // KutularÄ±n Rigidbody bileÅŸenlerini sakla
         boxRigidbodies = new Dictionary<GameObject, Rigidbody>();
         foreach (var box in boxes)
         {
@@ -39,7 +39,7 @@ public class DearImGuiSliding : MonoBehaviour
 
     void OnDisable()
     {
-        // Layout baðlantýsýný temizle
+        // Layout baÄŸlantÄ±sÄ±nÄ± temizle
         if (isLayoutRegistered)
         {
             ImGuiUn.Layout -= OnLayout;
@@ -49,7 +49,7 @@ public class DearImGuiSliding : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Kuvvet sadece seçili kutu varsa ve kuvvet uygulanýyorsa çalýþýr
+        // Kuvvet sadece seÃ§ili kutu varsa ve kuvvet uygulanÄ±yorsa Ã§alÄ±ÅŸÄ±r
         if (applyForce && selectedBox != null && boxRigidbodies.ContainsKey(selectedBox))
         {
             boxRigidbodies[selectedBox].AddForce(new Vector3(forceOnBox, 0, 0));
@@ -61,24 +61,24 @@ public class DearImGuiSliding : MonoBehaviour
         if (ImGui.Begin("Force Control"))
         {
             ImGui.Text("Select a Box:");
-            ImGui.Separator(); // Görsel olarak gruplandýrmak için bir ayýrýcý çizgi
+            ImGui.Separator(); // GÃ¶rsel olarak gruplandÄ±rmak iÃ§in bir ayÄ±rÄ±cÄ± Ã§izgi
 
-            // Kutular için radio button'larý oluþtur
+            // Kutular iÃ§in radio button'larÄ± oluÅŸtur
             foreach (var box in boxes)
             {
                 if (box != null)
                 {
-                    // Her kutu için bir radio button
+                    // Her kutu iÃ§in bir radio button
                     if (ImGui.RadioButton($"Select {box.name}", selectedBox == box))
                     {
-                        selectedBox = box; // Seçilen kutuyu güncelle
+                        selectedBox = box; // SeÃ§ilen kutuyu gÃ¼ncelle
                     }
                 }
             }
 
-            ImGui.Separator(); // Görsel ayýrýcý
+            ImGui.Separator(); // GÃ¶rsel ayÄ±rÄ±cÄ±
 
-            // Sadece bir kutu seçiliyse kontrolleri göster
+            // Sadece bir kutu seÃ§iliyse kontrolleri gÃ¶ster
             if (selectedBox != null)
             {
                 ImGui.Text($"Selected Box: {selectedBox.name}");

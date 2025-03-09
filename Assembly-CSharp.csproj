@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\Demo Scripts\Catupult Impulsive Force\CatapultLaunchImpulsiveForce.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Parachuter\DeployParachute.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Final Section Mini Demo Scripts\TriggerExample.cs" />
+     <Compile Include="Assets\DrawProjection.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Final Section Mini Demo Scripts\ExplosionExample.cs" />
      <Compile Include="Assets\Scripts\DearImGuiDemo.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Final Section Mini Demo Scripts\DensityExample.cs" />
@@ -58,13 +59,16 @@
      <Compile Include="Assets\Scripts\Demo Scripts\Gravity\Gravity.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Gun Shot\ShootGun.cs" />
      <Compile Include="Assets\Scripts\Testing Scripts\KinematicMovementTest.cs" />
+     <Compile Include="Assets\CannonController.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Catapult Kinematic\CatapultLaunchKinematic.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Box Collisions\InitialVelocitySetter.cs" />
+     <Compile Include="Assets\Scripts\Catapult ImGui Script.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Spinning Objects\SpinObjects.cs" />
      <Compile Include="Assets\Scripts\Testing Scripts\ImpulseiveForceTesting.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Car Breaking On Ramp\CarBreak.cs" />
      <Compile Include="Assets\Scripts\Testing Scripts\BasicForcesTesting.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Sliding Boxes\ConstantForceOnBoxes.cs" />
+     <Compile Include="Assets\Screenshake.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Space Ships\Thruster.cs" />
      <Compile Include="Assets\Scripts\Testing Scripts\BasicTorque.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Car Wheel\WheelSpin.cs" />
@@ -92,6 +96,7 @@
      <Folder Include="Assets\Scenes\Demo Scenes" />
      <Folder Include="Assets\TextMesh Pro\Resources" />
      <Folder Include="Assets\Scripts\Demo Scripts\Catupult Impulsive Force" />
+     <Folder Include="Assets\Scenes\Demo Scenes\deleted" />
      <Folder Include="Assets\Thirdparty\Gridbox Prototype Materials\Resources\ProBuilder Data" />
      <Folder Include="Assets\Dear Im Gui" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
@@ -109,8 +114,9 @@
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
-     <Folder Include="Assets\Physics Materials\Models" />
+     <Folder Include="Assets\Models" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+     <Folder Include="Assets\Prefabs" />
      <Folder Include="Assets\Scripts\Demo Scripts\Sliding Boxes" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
      <Folder Include="Assets\Physics Materials\Sliding Boxes Physics Materials" />
