@@ -4,12 +4,5 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/Demo Scenes/Bouncy Balls.unity
-    guid: cb83133c77b4de0498965a9f6341026b
-  - enabled: 1
-    path: Assets/Scenes/Demo Scenes/Sliding Boxes.unity
-    guid: e7335ea77b66d5647838c7e4d3d5b060
+  m_Scenes: []
   m_configObjects: {}
-  m_UseUCBPForAssetBundles: 0
