@@ -6,10 +6,8 @@ public class DearImGuiMassEditor : MonoBehaviour
 {
     public GameObject[] objectsToEdit; // Rigidbody bileşenlerine sahip nesneler
     private float[] masses; // Mass değerlerini saklamak için dizi
-
     private static float[] savedMasses; // Değiştirilen mass değerlerini saklamak için static dizi
-
-    private bool isInteractingWithImGui = false; // ImGui ile etkileşim kontrolü
+    private bool isGamePlaying = false; // Oyun durumu kontrolü
 
     private void Start()
     {
@@ -42,30 +40,36 @@ public class DearImGuiMassEditor : MonoBehaviour
     }
 
     private void OnEnable() => ImGuiUn.Layout += OnLayout;
-
     private void OnDisable() => ImGuiUn.Layout -= OnLayout;
 
     private void Update()
     {
-        // Eğer ImGui ile etkileşim varsa oyunu durdur, aksi takdirde devam ettir
-        if (isInteractingWithImGui)
+        if (!isGamePlaying)
         {
-            Time.timeScale = 0;
+            Time.timeScale = 0; // Oyun durur
         }
-        else if (Input.GetMouseButtonDown(0)) // Sadece oyun ekranına tıklanırsa devam et
+        else
         {
-            Time.timeScale = 1;
+            Time.timeScale = 1; // Oyun çalışır
         }
     }
 
     private void OnLayout()
     {
-        isInteractingWithImGui = true; // ImGui etkileşimi başladığında oyun durur
-
+        ImGui.SetNextWindowSize(new UnityEngine.Vector2(500, 400), ImGuiCond.FirstUseEver);
+        
         if (!ImGui.Begin("Rigidbody Mass Editor"))
         {
-            isInteractingWithImGui = false;
+            ImGui.End();
             return;
+        }
+
+        if (!isGamePlaying)
+        {
+            if (ImGui.Button("Play"))
+            {
+                isGamePlaying = true; // Play tuşuna basınca oyun başlar
+            }
         }
 
         for (int i = 0; i < objectsToEdit.Length; i++)
@@ -73,15 +77,26 @@ public class DearImGuiMassEditor : MonoBehaviour
             if (objectsToEdit[i] != null)
             {
                 Rigidbody rb = objectsToEdit[i].GetComponent<Rigidbody>();
-
                 if (rb != null)
                 {
                     ImGui.Text($"Object {i + 1}: {objectsToEdit[i].name}");
-                    if (ImGui.SliderFloat($"Mass {i + 1}", ref masses[i], 0.1f, 100f))
+                    ImGui.PushItemWidth(150);
+                    if (ImGui.SliderFloat($"##MassSlider{i}", ref masses[i], 0.1f, 100f))
                     {
                         rb.mass = masses[i];
-                        savedMasses[i] = masses[i];
                     }
+                    ImGui.SameLine();
+                    ImGui.PushItemWidth(50);
+                    if (ImGui.InputFloat($"##MassInput{i}", ref masses[i]))
+                    {
+                        rb.mass = masses[i];
+                    }
+                    ImGui.PopItemWidth();
+
+                    // Açıyı hesapla ve göster
+                    Vector3 velocity = rb.velocity;
+                    float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+                    ImGui.Text($"Launch Angle: {angle:F2} degrees");
                 }
                 else
                 {
@@ -96,11 +111,21 @@ public class DearImGuiMassEditor : MonoBehaviour
 
         if (ImGui.Button("Restart Game"))
         {
+            for (int i = 0; i < objectsToEdit.Length; i++)
+            {
+                if (objectsToEdit[i] != null)
+                {
+                    Rigidbody rb = objectsToEdit[i].GetComponent<Rigidbody>();
+                    if (rb != null)
+                    {
+                        savedMasses[i] = masses[i];
+                    }
+                }
+            }
+            isGamePlaying = false; // Restart sonrası oyun durur
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         ImGui.End();
-
-        isInteractingWithImGui = false; // ImGui etkileşimi bittiğinde oyun devam eder
     }
 }
