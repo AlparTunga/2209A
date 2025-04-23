@@ -5,9 +5,9 @@ public class CarBreak : MonoBehaviour {
     [SerializeField] private Rigidbody _rigidbody;
 
     [Min(0)]
-    [SerializeField] private float _breakForceMagnitude;
+    [SerializeField] public float _breakForceMagnitude;
 
-    [SerializeField] private bool _isUsingEquilibriumForceWhenBreaking;
+    [SerializeField] public bool _isUsingEquilibriumForceWhenBreaking;
 
     private bool _isBreaking;
 
