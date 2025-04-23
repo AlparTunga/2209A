@@ -9,6 +9,6 @@ PhysicMaterial:
   m_Name: Dark Red Ball
   dynamicFriction: 0.6
   staticFriction: 0.6
-  bounciness: 0.563
+  bounciness: 0.556
   frictionCombine: 0
   bounceCombine: 3

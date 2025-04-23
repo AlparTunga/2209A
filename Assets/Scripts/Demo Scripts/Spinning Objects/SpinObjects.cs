@@ -26,5 +26,8 @@ public class SpinObjects : MonoBehaviour {
             Spin(false);
         }
     }
+    public void SetTorque(float newTorque) {
+        torque = newTorque;
+    }
 
 }

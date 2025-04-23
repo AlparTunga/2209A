@@ -9,6 +9,6 @@ PhysicMaterial:
   m_Name: Yellow Ball
   dynamicFriction: 0.6
   staticFriction: 0.6
-  bounciness: 0.285
+  bounciness: 0.514
   frictionCombine: 0
   bounceCombine: 3
