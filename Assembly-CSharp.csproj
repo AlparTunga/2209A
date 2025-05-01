@@ -53,9 +53,13 @@
      <Compile Include="Assets\DrawProjection.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Final Section Mini Demo Scripts\ExplosionExample.cs" />
      <Compile Include="Assets\Scripts\DearImGuiDemo.cs" />
+     <Compile Include="Assets\Scripts\PulleySystem.cs" />
+     <Compile Include="Assets\Scripts\RopePath.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Final Section Mini Demo Scripts\DensityExample.cs" />
+     <Compile Include="Assets\Scripts\Buoyancy.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Final Section Mini Demo Scripts\CenterOfMassExample.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Parachuter\Water.cs" />
+     <Compile Include="Assets\Scripts\PulleyImgui.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Box On Ramp\Controller.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Gravity\Gravity.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Gun Shot\ShootGun.cs" />
@@ -80,6 +84,7 @@
      <Compile Include="Assets\Scripts\Demo Scripts\Car Wheel\WheelSpin.cs" />
      <Compile Include="Assets\Scripts\Testing Scripts\InitialVelocityTesting.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Catapult Kinematic\CatapultActivationScript.cs" />
+     <Compile Include="Assets\Scripts\BoyancyImgui.cs" />
      <Compile Include="Assets\Scripts\DearImGuiSliding.cs" />
      <Folder Include="Assets" />
      <Folder Include="Library\BuildInstructions" />

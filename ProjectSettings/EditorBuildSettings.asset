@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Demo Scenes/Menu.unity
     guid: 0cbb4b96474831049aa5aa084b13ffce
   - enabled: 1
-    path: Assets/Scenes/Demo Scenes/Bouncy Balls.unity
+    path: Assets/Scenes/Demo Scenes/deleted/Bouncy Balls.unity
     guid: cb83133c77b4de0498965a9f6341026b
   - enabled: 1
     path: Assets/Scenes/Demo Scenes/OK/Sliding Boxes.unity
