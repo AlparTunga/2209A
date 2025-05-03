@@ -62,7 +62,9 @@
      <Compile Include="Assets\Scripts\PulleyImgui.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Box On Ramp\Controller.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Gravity\Gravity.cs" />
+     <Compile Include="Assets\Scripts\PendulumImgui.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Gun Shot\ShootGun.cs" />
+     <Compile Include="Assets\Scripts\PendulumController.cs" />
      <Compile Include="Assets\Scripts\BoxCollisionImguı.cs" />
      <Compile Include="Assets\Scripts\CarBreakImGui.cs" />
      <Compile Include="Assets\UI pack\Scripts\FillValueNumber.cs" />
@@ -83,8 +85,8 @@
      <Compile Include="Assets\Scripts\Testing Scripts\BasicTorque.cs" />
      <Compile Include="Assets\Scripts\Demo Scripts\Car Wheel\WheelSpin.cs" />
      <Compile Include="Assets\Scripts\Testing Scripts\InitialVelocityTesting.cs" />
-     <Compile Include="Assets\Scripts\Demo Scripts\Catapult Kinematic\CatapultActivationScript.cs" />
      <Compile Include="Assets\Scripts\BoyancyImgui.cs" />
+     <Compile Include="Assets\Scripts\Demo Scripts\Catapult Kinematic\CatapultActivationScript.cs" />
      <Compile Include="Assets\Scripts\DearImGuiSliding.cs" />
      <Folder Include="Assets" />
      <Folder Include="Library\BuildInstructions" />

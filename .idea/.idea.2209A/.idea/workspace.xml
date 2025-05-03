@@ -6,24 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="3ac0b55b-abeb-4345-8f3f-7cff615693fb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.2209A/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.2209A/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2209A.sln" beforeDir="false" afterPath="$PROJECT_DIR$/2209A.sln" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Physics Materials/Box Collisions/Elastic.physicMaterial" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Physics Materials/Box Collisions/Elastic.physicMaterial" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/Bouncy Balls.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/Bouncy Balls.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/Box Collisions.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/Box Collisions.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/Car Breaking On Ramp.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/Car Breaking On Ramp.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/Catapult V2.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/Catapult V2.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/Catapult.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/Catapult.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/OK/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/OK/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/OK/Spinning Objects.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/OK/Spinning Objects.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0-prev.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker1-prev.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe-0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe-0.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker1.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker1.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,6 +117,8 @@
       <workItem from="1745578807912" duration="1204000" />
       <workItem from="1745582419110" duration="6367000" />
       <workItem from="1746106555360" duration="5051000" />
+      <workItem from="1746274035429" duration="13000" />
+      <workItem from="1746274125048" duration="6273000" />
     </task>
     <servers />
   </component>
