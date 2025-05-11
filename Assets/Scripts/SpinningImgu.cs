@@ -3,10 +3,13 @@ using ImGuiNET;
 
 public class SpinningImgu : MonoBehaviour
 {
-    [SerializeField] private Rigidbody[] objects; // Cisimlerin Rigidbody bileşenleri
-    [SerializeField] private SpinObjects spinObjects; // Torku yöneten nesne
-    private float globalTorque = 10f; // Tüm kutular için ortak tork
-    private float changeStep = 1f; // Değişim miktarı seçimi
+    [SerializeField] private Rigidbody[] objects;      // Cisimlerin Rigidbody bileşenleri
+    [SerializeField] private SpinObjects spinObjects;  // Torku yoneten nesne
+
+    private float globalTorque = 10f;  // Tum cisimler icin ortak tork
+    private float changeStep    = 1f;  // Degisim miktari secimi
+
+    private bool showIntro = true;
 
     void OnEnable()
     {
@@ -20,69 +23,98 @@ public class SpinningImgu : MonoBehaviour
 
     void OnLayout()
     {
-        ImGui.Begin("Dönme Hareketi Simülatörü");
+        // Icerige gore pencere boyutunu otomatik ayarla
+        ImGuiWindowFlags flags = ImGuiWindowFlags.AlwaysAutoResize;
 
-        // Değişim miktarını seçme butonları
+        // --- GIRIS EKRANI ---
+        if (showIntro)
+        {
+            ImGui.Begin("Donme Hareketi ve Eylemsizlik - Giris", flags);
+
+            ImGui.TextWrapped("Bir cisme tork uygulandiginda donme hareketi baslar.");
+            ImGui.TextWrapped("Eylemsizlik momenti cismin donmeye karsi gosterdigi direncin olcusudur.");
+
+            ImGui.BulletText("tau     = I * alpha               (Tork = Eylemsizlik * Acisal ivme)");
+            ImGui.BulletText("I       = (1/12) * m * (w^2 + h^2) (Dikdortgen icin eylemsizlik momenti)");
+            ImGui.BulletText("KE_rot  = 0.5 * I * omega^2       (Donme kinetik enerjisi)");
+
+            ImGui.Separator();
+            if (ImGui.Button("Devam Et"))
+                showIntro = false;
+
+            ImGui.End();
+            return;
+        }
+
+        // --- ANA PANEL ---
+        ImGui.Begin("Donme Hareketi Simulatoru", flags);
+
+        // Degisim miktarini sec
         ImGui.Text("Degisim Miktari:");
         if (ImGui.Button("0.1")) changeStep = 0.1f;
         ImGui.SameLine();
-        if (ImGui.Button("1")) changeStep = 1f;
+        if (ImGui.Button("1"))   changeStep = 1f;
         ImGui.SameLine();
-        if (ImGui.Button("10")) changeStep = 10f;
+        if (ImGui.Button("10"))  changeStep = 10f;
         ImGui.SameLine();
         if (ImGui.Button("100")) changeStep = 100f;
 
-        // Global tork değeri için + ve - butonları
-        ImGui.Text("Genel Tork: " + globalTorque);
-        if (ImGui.Button("-##tork")) globalTorque -= changeStep;
+        // Global tork ayari
+        ImGui.Text($"Genel Tork: {globalTorque:F1}");
+        if (ImGui.Button("-##tork")) globalTorque = Mathf.Max(0f, globalTorque - changeStep);
         ImGui.SameLine();
-        if (ImGui.Button("+##tork")) globalTorque += changeStep;
-        globalTorque = Mathf.Clamp(globalTorque, 0f, 100f);
+        if (ImGui.Button("+##tork")) globalTorque = Mathf.Min(100f, globalTorque + changeStep);
         spinObjects.SetTorque(globalTorque);
 
+        // Her cisim icin ozellikler
         foreach (var obj in objects)
         {
-            Vector3 scale = obj.transform.localScale;
-            float mass = obj.mass;
-            float inertia = (1f / 12f) * mass * (scale.x * scale.x + scale.y * scale.y); // Dikdörtgen/kare için I
-            float angularVelocity = obj.angularVelocity.magnitude;
+            Vector3 scale       = obj.transform.localScale;
+            float   mass        = obj.mass;
+            float   inertia     = (1f / 12f) * mass * (scale.x * scale.x + scale.y * scale.y);
+            float   angularVel  = obj.angularVelocity.magnitude;
 
+            ImGui.Separator();
             ImGui.Text($"Nesne: {obj.gameObject.name}");
-            
-            // Kütle değiştirici (+/- butonları)
-            ImGui.Text($"Kütle: {mass:F1} kg");
-            if (ImGui.Button($"-##kütle{obj.gameObject.name}")) mass -= changeStep;
+
+            // Kutle
+            ImGui.Text($"Kutle: {mass:F1} kg");
+            if (ImGui.Button($"-##kutle{obj.name}")) mass = Mathf.Max(0.1f, mass - changeStep);
             ImGui.SameLine();
-            if (ImGui.Button($"+##kütle{obj.gameObject.name}")) mass += changeStep;
-            mass = Mathf.Clamp(mass, 0.1f, 500f);
+            if (ImGui.Button($"+##kutle{obj.name}")) mass += changeStep;
             obj.mass = mass;
 
-            // Boyut değiştirici (+/- butonları, max limit kaldırıldı)
+            // X ekseni olcek
             ImGui.Text($"Genislik (X): {scale.x:F2}");
-            if (ImGui.Button($"-##genislik{obj.gameObject.name}")) scale.x -= changeStep;
+            if (ImGui.Button($"-##genislik{obj.name}")) scale.x = Mathf.Max(0.1f, scale.x - changeStep);
             ImGui.SameLine();
-            if (ImGui.Button($"+##genislik{obj.gameObject.name}")) scale.x += changeStep;
-            scale.x = Mathf.Max(0.1f, scale.x);
+            if (ImGui.Button($"+##genislik{obj.name}")) scale.x += changeStep;
 
-            ImGui.Text($"Yükseklik (Y): {scale.y:F2}");
-            if (ImGui.Button($"-##yukseklik{obj.gameObject.name}")) scale.y -= changeStep;
+            // Y ekseni olcek
+            ImGui.Text($"Yukseklik (Y): {scale.y:F2}");
+            if (ImGui.Button($"-##yukseklik{obj.name}")) scale.y = Mathf.Max(0.1f, scale.y - changeStep);
             ImGui.SameLine();
-            if (ImGui.Button($"+##yukseklik{obj.gameObject.name}")) scale.y += changeStep;
-            scale.y = Mathf.Max(0.1f, scale.y);
+            if (ImGui.Button($"+##yukseklik{obj.name}")) scale.y += changeStep;
 
+            // Z ekseni olcek
+            ImGui.Text($"Derinlik (Z): {scale.z:F2}");
+            if (ImGui.Button($"-##derinlik{obj.name}")) scale.z = Mathf.Max(0.1f, scale.z - changeStep);
+            ImGui.SameLine();
+            if (ImGui.Button($"+##derinlik{obj.name}")) scale.z += changeStep;
+
+            // Degisikleri uygula
             obj.transform.localScale = scale;
-            
+
             ImGui.Text($"Eylemsizlik Momenti (I): {inertia:F2}");
-            ImGui.Text($"Acisal Hiz : {angularVelocity:F2}");
-            ImGui.Separator();
+            ImGui.Text($"Aci Hiz:                 {angularVel:F2}");
         }
 
-        // Tüm kutuları durdurma butonu
-        if (ImGui.Button("Tüm Kutulari Durdur"))
+        ImGui.Separator();
+        if (ImGui.Button("Kutuyu Durdur"))
         {
             foreach (var obj in objects)
             {
-                obj.velocity = Vector3.zero;
+                obj.velocity        = Vector3.zero;
                 obj.angularVelocity = Vector3.zero;
             }
         }

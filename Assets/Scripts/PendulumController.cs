@@ -9,9 +9,9 @@ public class PendulumController : MonoBehaviour
 
     [Header("Simülasyon Parametreleri")]
     [Tooltip("İp uzunluğu")]
-    public float length       = 2f;
+    public float length       = 4f;
     [Tooltip("Kütle")]
-    public float mass         = 1f;
+    public float mass         = 5f;
     [Tooltip("Yerçekimi")]
     public float gravity      = 9.81f;
     [Tooltip("Sönüm katsayısı")]
@@ -40,10 +40,10 @@ public class PendulumController : MonoBehaviour
             rope = gameObject.AddComponent<LineRenderer>();
 
         rope.positionCount = 2;
-        rope.startWidth    = 0.05f;
-        rope.endWidth      = 0.05f;
+        rope.startWidth    = 0.07f;
+        rope.endWidth      = 0.07f;
         rope.useWorldSpace = true;
-        rope.material      = new Material(Shader.Find("Sprites/Default"));
+        
     }
 
     void Start()

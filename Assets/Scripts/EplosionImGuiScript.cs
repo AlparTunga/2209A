@@ -3,80 +3,93 @@ using ImGuiNET;
 
 public class EplosionImGuiScript : MonoBehaviour
 {
-    [Header("Referanslar")]
+    [Header("References")]
     [SerializeField] private CannonController cannonController;
     [SerializeField] private LineRenderer lineRenderer;
 
-    [Header("Fizik")]
+    [Header("Physics")]
     [SerializeField] private float gravity = 9.81f;
 
-    private void OnEnable()
-    {
-        ImGuiUn.Layout += OnLayout;
-    }
+    private bool showIntro = true;
 
-    private void OnDisable()
-    {
-        ImGuiUn.Layout -= OnLayout;
-    }
+    void OnEnable()  => ImGuiUn.Layout += OnLayout;
+    void OnDisable() => ImGuiUn.Layout -= OnLayout;
 
-    private void OnLayout()
+    void OnLayout()
     {
+        // Icerige gore pencere boyutunu otomatik ayarla
+        ImGuiWindowFlags flags = ImGuiWindowFlags.AlwaysAutoResize;
+
+        // --- GIRIS EKRANI ---
+        if (showIntro)
+        {
+            ImGui.Begin("Eginimli Atis Hareketi - Giris", flags);
+
+            ImGui.TextWrapped("Bir cisim egik aciyla atildiginda yatay ve dusey bilesenlerle hareket eder.");
+            ImGui.TextWrapped("Maksimum yukseklik, ucus suresi ve menzil hesaplanabilir.");
+
+            ImGui.BulletText("Hmax = (Vy * Vy) / (2 * g)");
+            ImGui.BulletText("T    = 2 * Vy / g");
+            ImGui.BulletText("R    = V * T * cos(theta)");
+
+            ImGui.Separator();
+            if (ImGui.Button("Devam Et"))
+                showIntro = false;
+
+            ImGui.End();
+            return;
+        }
+
+        // --- ANA PANEL ---
         if (cannonController == null || lineRenderer == null)
         {
-            ImGui.Begin("Atış Bilgisi");
+            ImGui.Begin("Atis Bilgisi", flags);
             ImGui.Text("Referanslar eksik.");
             ImGui.End();
             return;
         }
 
-        ImGui.Begin("Atış Bilgisi");
+        ImGui.Begin("Atis Bilgisi", flags);
 
-        // Başlangıç hızı
+        // Baslangic hizi
         Vector3 initialVelocity = cannonController.ShotPoint.up * cannonController.BlastPower;
-        float totalSpeed = initialVelocity.magnitude;
+        float totalSpeed        = initialVelocity.magnitude;
 
-        // Açılar ve uçuş bilgisi
-        Vector3 dir = cannonController.ShotPoint.up.normalized;
-        float verticalAngle = Mathf.Asin(dir.y) * Mathf.Rad2Deg;
-        float maxHeight = (initialVelocity.y * initialVelocity.y) / (2 * gravity);
-        float flightTime = (2 * initialVelocity.y) / gravity;
+        // Acilar ve ucus bilgisi
+        Vector3 dir             = cannonController.ShotPoint.up.normalized;
+        float verticalAngle     = Mathf.Asin(dir.y) * Mathf.Rad2Deg;
+        float maxHeight         = (initialVelocity.y * initialVelocity.y) / (2 * gravity);
+        float flightTime        = (2 * initialVelocity.y) / gravity;
 
-        // Menzil
+        // Menzil hesabi
         float range = 0f;
         if (lineRenderer.positionCount >= 2)
         {
             Vector3 start = lineRenderer.GetPosition(0);
-            Vector3 end = lineRenderer.GetPosition(lineRenderer.positionCount - 1);
-            range = Vector3.Distance(new Vector3(start.x, 0, start.z), new Vector3(end.x, 0, end.z));
+            Vector3 end   = lineRenderer.GetPosition(lineRenderer.positionCount - 1);
+            range = Vector3.Distance(new Vector3(start.x, 0, start.z),
+                                     new Vector3(end.x,   0, end.z));
         }
 
-        // Çıkış hızı ayarı
-        ImGui.SliderFloat("Çıkış Hızı (BlastPower)", ref cannonController.BlastPower, 0.1f, 100f);
+        // Cikis hizi ayari
+        ImGui.SliderFloat("Cikis Hizi (BlastPower)", ref cannonController.BlastPower, 0.1f, 100f);
 
-        // Anlık hız (sahnede varsa)
-        Rigidbody cannonballRigidbody = null;
+        // Anlik top hizi (varsa)
+        Rigidbody cannonballRb = null;
         if (cannonController.LastFiredBall != null)
-        {
-            cannonballRigidbody = cannonController.LastFiredBall.GetComponent<Rigidbody>();
-        }
+            cannonballRb = cannonController.LastFiredBall.GetComponent<Rigidbody>();
 
-        // Bilgiler
-        ImGui.Text($"Y Ekseninde Çıkış Açısı: {verticalAngle:F2}°");
-        ImGui.Text($"Maks. Yükseklik: {maxHeight:F2} m");
-        ImGui.Text($"Uçuş Süresi: {flightTime:F2} s");
-        ImGui.Text($"Menzil: {range:F2} m");
-        ImGui.Text($"Çıkış Hızı: {totalSpeed:F2} m/s");
+        // Bilgileri goster
+        ImGui.Text($"Y Ekseni Cikis Acisi: {verticalAngle:F2} deg");
+        ImGui.Text($"Maks. Yukseklik:      {maxHeight:F2} m");
+        ImGui.Text($"Ucus Suresi:          {flightTime:F2} s");
+        ImGui.Text($"Menzil:               {range:F2} m");
+        ImGui.Text($"Cikis Hizi:           {totalSpeed:F2} m/s");
 
-        if (cannonballRigidbody != null)
-        {
-            float currentSpeed = cannonballRigidbody.velocity.magnitude;
-            ImGui.Text($"Havadaki Hız: {currentSpeed:F2} m/s");
-        }
+        if (cannonballRb != null)
+            ImGui.Text($"Havadaki Hiz:         {cannonballRb.velocity.magnitude:F2} m/s");
         else
-        {
-            ImGui.Text("Top henüz fırlatılmadı.");
-        }
+            ImGui.Text("Top henuz firlatilmadi.");
 
         ImGui.End();
     }
