@@ -2,44 +2,52 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform car1;
-    public Transform car2;
+    public Transform target1;
+    public Transform target2;
 
-    public Vector3 offset = new Vector3(0f, 25f, -10f); // Daha dik ve yukarýdan
-    public float followSpeed = 2f;
+    public float baseHeight = 15f;              // Artýrýldý
+    public float maxHeight = 60f;               // Artýrýldý
+    public float distanceMultiplier = 1.2f;     // Daha hýzlý yükselme
 
-    private bool zoomToWinner = false;
+    public float followSpeed = 4f;
+    public float baseZDistance = 25f;           // Kamera Z'de daha geride
+    public float maxZDistance = 80f;            // Zoom-out sýnýrý
+
+    private bool focusOnWinner = false;
     private Transform winnerTarget;
 
     void LateUpdate()
     {
-        if (zoomToWinner && winnerTarget != null)
+        if (focusOnWinner && winnerTarget != null)
         {
-            // Kazanan arabaya kuþ bakýþý zoom
-            Vector3 targetPos = winnerTarget.position + new Vector3(0f, 15f, -5f); // Hafif çapraz yukarýdan
-            transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * followSpeed * 2f);
-            transform.LookAt(winnerTarget.position + Vector3.up * 2f); // Arabaya bakarken biraz yukarýyý hedefle
+            Vector3 focusPos = winnerTarget.position + new Vector3(-15f, 8f, -15f);
+            transform.position = Vector3.Lerp(transform.position, focusPos, Time.deltaTime * followSpeed);
+            transform.LookAt(winnerTarget);
+            return;
         }
-        else
-        {
-            // Ýki arabanýn ortasýný takip et
-            Vector3 midPoint = (car1.position + car2.position) / 2f;
-            Vector3 targetPosition = midPoint + offset;
-            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * followSpeed);
 
-            // Kuþ bakýþý bakýþ yönü (aþaðýya doðru)
-            transform.rotation = Quaternion.Euler(75f, 0f, 0f); // 75 derece eðim
-        }
+        if (target1 == null || target2 == null) return;
+
+        Vector3 centerPoint = (target1.position + target2.position) / 2f;
+
+        float horizontalDist = Mathf.Abs(target1.position.x - target2.position.x);
+        float dynamicHeight = Mathf.Clamp(baseHeight + horizontalDist * distanceMultiplier, baseHeight, maxHeight);
+        float dynamicZ = Mathf.Clamp(baseZDistance + horizontalDist * 1.2f, baseZDistance, maxZDistance); // Z uzaklýðý da büyüsün
+
+        Vector3 desiredPos = centerPoint + new Vector3(0f, dynamicHeight, -dynamicZ);
+        transform.position = Vector3.Lerp(transform.position, desiredPos, Time.deltaTime * followSpeed);
+        transform.LookAt(centerPoint);
     }
 
     public void FocusOnWinner(Transform winner)
     {
+        focusOnWinner = true;
         winnerTarget = winner;
-        zoomToWinner = true;
     }
 
     public void ResetCamera()
     {
-        zoomToWinner = false;
+        focusOnWinner = false;
+        winnerTarget = null;
     }
 }

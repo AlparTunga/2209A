@@ -1,62 +1,39 @@
-using System.Collections.Generic;
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class TorqueVisualizer : MonoBehaviour
 {
-    public Transform pivot;                     // Tahterevallinin ortasý
-    public Renderer seesawRenderer;              // Tahterevalli görseli
-    public float gravity = 9.81f;                // Yerçekimi
-    public float balanceTolerance = 1f;          // Denge toleransý
+    [Header("Seesaw ReferansÄ±")]
+    public Transform seesawTransform;
 
-    private List<MassBlock> blocks = new List<MassBlock>();
+    [Header("Fizik AyarlarÄ±")]
+    public float gravity = 9.81f;
+    [Tooltip("Tork farkÄ± bu deÄŸerin altÄ±ndaysa denge kabul edilir.")]
+    public float balanceTolerance = 10f;
 
     void Update()
     {
-        if (pivot == null || seesawRenderer == null)
-            return; // Atla, hata vermesin
-
-        RefreshBlocks(); // Bloklarý sahnede otomatik güncelle
-
-        if (blocks.Count == 0)
-            return;
+        if (seesawTransform == null) return;
 
         float leftTorque = 0f;
         float rightTorque = 0f;
+        var blocks = Object.FindObjectsByType<MassBlock>(FindObjectsSortMode.None);
 
         foreach (var block in blocks)
         {
-            if (block == null) continue;
+            if (block == null || !block.HasBeenPlaced()) continue;
 
-            float distance = block.transform.position.x - pivot.position.x;
+            float dx = seesawTransform.InverseTransformPoint(block.transform.position).x;
             float force = block.blockMass * gravity;
-            float torque = Mathf.Abs(distance) * force;
+            float torque = Mathf.Abs(dx) * force;
 
-            if (distance < 0)
-                leftTorque += torque;
-            else
-                rightTorque += torque;
+            if (dx < 0f) leftTorque += torque;
+            else rightTorque += torque;
         }
 
-        float torqueDifference = Mathf.Abs(leftTorque - rightTorque);
+        float diff = Mathf.Abs(leftTorque - rightTorque);
 
-        if (torqueDifference <= balanceTolerance)
-        {
-            seesawRenderer.material.color = Color.green; // Dengede
-        }
-        else if (leftTorque > rightTorque)
-        {
-            seesawRenderer.material.color = Color.Lerp(Color.white, Color.red, Mathf.Clamp01(torqueDifference / 100f)); // Sol aðýr
-        }
-        else
-        {
-            seesawRenderer.material.color = Color.Lerp(Color.white, Color.red, Mathf.Clamp01(torqueDifference / 100f)); // Sað aðýr
-        }
-    }
-
-    void RefreshBlocks()
-    {
-        // Sahnede var olan tüm MassBlock'larý otomatik bul
-        blocks.Clear();
-        blocks.AddRange(FindObjectsOfType<MassBlock>());
+        // ArtÄ±k ne renk deÄŸiÅŸtiriyor, ne de angularVelocity sÄ±fÄ±rlÄ±yor.
+        // Ä°sterseniz burada baÅŸka bir iÅŸlem koyabilirsiniz:
+        // if (diff <= balanceTolerance) { â€¦ } else { â€¦ }
     }
 }

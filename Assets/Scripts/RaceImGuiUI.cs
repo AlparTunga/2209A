@@ -16,30 +16,25 @@ public class RaceImGuiUI : MonoBehaviour
     {
         if (raceManager == null) return;
 
-        // Ekranin ortasina pencereyi yerlestirmek icin pencere pozisyonu ayarla
         Vector2 screenSize = new Vector2(Screen.width, Screen.height);
-        Vector2 windowSize = new Vector2(480, 300); // Estetik pencere boyutu
+        Vector2 windowSize = new Vector2(480, 300);
         ImGui.SetNextWindowSize(windowSize, ImGuiCond.Always);
 
         if (!introComplete)
         {
-            // Intro ekranı ortada
             Vector2 centerPos = (screenSize - windowSize) * 0.5f;
             ImGui.SetNextWindowPos(centerPos, ImGuiCond.Always);
         }
         else
         {
-            // Yarış UI sol üstte (örnek: 20px padding)
             Vector2 topLeftPos = new Vector2(20, 20);
             ImGui.SetNextWindowPos(topLeftPos, ImGuiCond.Always);
         }
-
 
         ImGui.Begin("Race Intro", ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove);
 
         if (!introComplete)
         {
-            // Animasyon efekti (alpha yavaşça artıyor)
             introAlpha = Mathf.Clamp01(introAlpha + Time.deltaTime * introFadeSpeed);
             ImGui.PushStyleVar(ImGuiStyleVar.Alpha, introAlpha);
 
@@ -61,9 +56,20 @@ public class RaceImGuiUI : MonoBehaviour
             return;
         }
 
-        // Intro tamamlandıysa: ayarlar ve bilgi paneli açılır
         ShowMainRaceUI();
         ImGui.End();
+
+        // Intro sonrası sağ üst köşede denklem penceresi
+        if (introComplete)
+        {
+            Vector2 equationWindowSize = new Vector2(220, 60);
+            Vector2 equationWindowPos = new Vector2(screenSize.x - equationWindowSize.x - 20, 20);
+            ImGui.SetNextWindowSize(equationWindowSize, ImGuiCond.Always);
+            ImGui.SetNextWindowPos(equationWindowPos, ImGuiCond.Always);
+            ImGui.Begin("Fizik Denklemi", ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove);
+            ImGui.Text("Yol = Hiz x Zaman");
+            ImGui.End();
+        }
     }
 
     void ShowMainRaceUI()
@@ -101,8 +107,8 @@ public class RaceImGuiUI : MonoBehaviour
             else
             {
                 ImGui.Text("Arac Bilgileri");
-
                 ImGui.Separator();
+
                 ImGui.Text("Arac 1");
                 ImGui.Text($"Zaman: {raceManager.car1.GetElapsedTime():F1} s");
                 ImGui.Text($"Hiz: {raceManager.car1.speed} m/s");
