@@ -1,72 +1,38 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InitialVelocitySetter : MonoBehaviour
-{
-    [Header("Kutuların Rigidbody Listeleri (opsiyonel)")]
-    [SerializeField] private List<Rigidbody> _elasticBoxes = new List<Rigidbody>();
-    [SerializeField] private List<Rigidbody> _inelasticBoxes = new List<Rigidbody>();
-    [SerializeField] private List<Rigidbody> _perfectlyInelasticBoxes = new List<Rigidbody>();
+public class InitialVelocitySetter : MonoBehaviour {
 
-    [Header("Başlangıç Hızları ve Kütleler")]
-    [SerializeField] private float _box1InitialVelocity = 0f;
-    [SerializeField] private float _box2InitialVelocity = 0f;
+    [SerializeField] private List<Rigidbody> _elasticBoxes;
+    [SerializeField] private List<Rigidbody> _inelasticBoxes;
+    [SerializeField] private List<Rigidbody> _perfectlyInelasticBoxes;
+
+    [SerializeField] private float _box1InitialVelocity;
+    [SerializeField] private float _box2InitialVelocity;
+
     [Min(0.0001f)]
-    [SerializeField] private float _box1mass = 1f;
+    [SerializeField] private float _box1mass;
     [Min(0.0001f)]
-    [SerializeField] private float _box2mass = 1f;
+    [SerializeField] private float _box2mass;
 
-    void Start()
-    {
-        // Başlangıçta sadece kütleleri ayarla
-        SetMasses();
-    }
 
-    public void SetMasses()
-    {
-        // Eğer listeler boşsa uyar, çık
-        if (_elasticBoxes.Count == 0 &&
-            _inelasticBoxes.Count == 0 &&
-            _perfectlyInelasticBoxes.Count == 0)
-        {
-            Debug.LogWarning("InitialVelocitySetter: Rigidbody listeleri atanmadı (Inspector).");
-            return;
-        }
 
-        // Elastik
-        if (_elasticBoxes.Count > 0) _elasticBoxes[0].mass = _box1mass;
-        if (_elasticBoxes.Count > 1) _elasticBoxes[1].mass = _box2mass;
+    private void Start() {
+        _elasticBoxes[0].velocity = new Vector3(_box1InitialVelocity, 0, 0);
+        _inelasticBoxes[0].velocity = new Vector3(_box1InitialVelocity, 0, 0);
+        _perfectlyInelasticBoxes[0].velocity = new Vector3(_box1InitialVelocity, 0, 0);
 
-        // İnelastik
-        if (_inelasticBoxes.Count > 0) _inelasticBoxes[0].mass = _box1mass;
-        if (_inelasticBoxes.Count > 1) _inelasticBoxes[1].mass = _box2mass;
+        _elasticBoxes[1].velocity = new Vector3(_box2InitialVelocity, 0, 0);
+        _inelasticBoxes[1].velocity = new Vector3(_box2InitialVelocity, 0, 0);
+        _perfectlyInelasticBoxes[1].velocity = new Vector3(_box2InitialVelocity, 0, 0);
 
-        // Tamamen İnelastik
-        if (_perfectlyInelasticBoxes.Count > 0) _perfectlyInelasticBoxes[0].mass = _box1mass;
-        if (_perfectlyInelasticBoxes.Count > 1) _perfectlyInelasticBoxes[1].mass = _box2mass;
-    }
+        _elasticBoxes[0].mass = _box1mass;
+        _inelasticBoxes[0].mass = _box1mass;
+        _perfectlyInelasticBoxes[0].mass = _box1mass;
 
-    public void ApplyVelocities()
-    {
-        // Eğer listeler boşsa uyar, çık
-        if (_elasticBoxes.Count == 0 &&
-            _inelasticBoxes.Count == 0 &&
-            _perfectlyInelasticBoxes.Count == 0)
-        {
-            Debug.LogWarning("InitialVelocitySetter: Rigidbody listeleri atanmadı (Inspector).");
-            return;
-        }
-
-        // Elastik
-        if (_elasticBoxes.Count > 0) _elasticBoxes[0].velocity = new Vector3(_box1InitialVelocity, 0, 0);
-        if (_elasticBoxes.Count > 1) _elasticBoxes[1].velocity = new Vector3(_box2InitialVelocity, 0, 0);
-
-        // İnelastik
-        if (_inelasticBoxes.Count > 0) _inelasticBoxes[0].velocity = new Vector3(_box1InitialVelocity, 0, 0);
-        if (_inelasticBoxes.Count > 1) _inelasticBoxes[1].velocity = new Vector3(_box2InitialVelocity, 0, 0);
-
-        // Tamamen İnelastik
-        if (_perfectlyInelasticBoxes.Count > 0) _perfectlyInelasticBoxes[0].velocity = new Vector3(_box1InitialVelocity, 0, 0);
-        if (_perfectlyInelasticBoxes.Count > 1) _perfectlyInelasticBoxes[1].velocity = new Vector3(_box2InitialVelocity, 0, 0);
+        _elasticBoxes[1].mass = _box2mass;
+        _inelasticBoxes[1].mass = _box2mass;
+        _perfectlyInelasticBoxes[1].mass = _box2mass;
     }
 }

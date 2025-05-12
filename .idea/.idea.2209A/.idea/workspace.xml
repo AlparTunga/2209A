@@ -5,20 +5,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ac0b55b-abeb-4345-8f3f-7cff615693fb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.2209A/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.2209A/.idea/projectSettingsUpdater.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.2209A/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.2209A/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/2209A.sln" beforeDir="false" afterPath="$PROJECT_DIR$/2209A.sln" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Red.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Red.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Physics Materials/Box Collisions/Elastic.physicMaterial" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Physics Materials/Box Collisions/Elastic.physicMaterial" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Physics Materials/Box Collisions/Inelastic.physicMaterial" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Physics Materials/Box Collisions/Inelastic.physicMaterial" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/OK/Box Collisions.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/OK/Box Collisions.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BoxCollisionImguı.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BoxCollisionImguı.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Demo Scripts/Box Collisions/InitialVelocitySetter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Demo Scripts/Box Collisions/InitialVelocitySetter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Dear Im Gui/Default Font Atlas Config Asset.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dear Im Gui/Default Font Atlas Config Asset.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Brick 1.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Brick 1.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/blue_nebulae_1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/blue_nebulae_1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/dark-wood-2048x2048.jpg.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/dark-wood-2048x2048.jpg.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/wood.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/wood.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Physics Materials/Sliding Boxes Physics Materials/Orange.physicMaterial" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Physics Materials/Sliding Boxes Physics Materials/Orange.physicMaterial" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Physics Materials/Sliding Boxes Physics Materials/Red.physicMaterial" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Physics Materials/Sliding Boxes Physics Materials/Red.physicMaterial" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Physics Materials/Sliding Boxes Physics Materials/Yellow.physicMaterial" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Physics Materials/Sliding Boxes Physics Materials/Yellow.physicMaterial" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Pulley_Moving_1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Pulley_Moving_1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/OK/Car Breaking On Ramp.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/OK/Car Breaking On Ramp.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/OK/ContainerScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/OK/ContainerScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/OK/Pulley.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/OK/Pulley.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/OK/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/OK/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/OK/Sliding Boxes.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Demo Scenes/OK/Sliding Boxes.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/PendulumScene.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/PendulumScene.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BoyancyImgui.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BoyancyImgui.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CarBreakImGui.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CarBreakImGui.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DearImGuiSliding.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DearImGuiSliding.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EplosionImGuiScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EplosionImGuiScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PendulumController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PendulumController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PendulumImgui.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PendulumImgui.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PulleyImgui.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PulleyImgui.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SpinningImgu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SpinningImgu.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker1.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker1.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-AssetImportWorker0-0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-AssetImportWorker0-0.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-AssetImportWorker1-0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-AssetImportWorker1-0.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe-0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe-0.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2023.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2023.dwlt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/Assembly-CSharp.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/Assembly-CSharp.csproj.AssemblyReference.cache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,13 +52,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/BoxCollisionHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/BoyancyImgui.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/CarBreakImGui.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Rope.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/RopeConnecter.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/TagOfWarImgui.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/VisualRope.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/RopeClylinder.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.realgames.dear-imgui@101996d5fc/ImGuiNET.Unity/DearImGui.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -53,15 +71,20 @@
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\batua\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\batua\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\batua\\AppData\\Local\\Symbols\\src&quot;
+    ]
   }
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
@@ -86,9 +109,6 @@
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
       <option name="projectPathOnTarget" />
-      <option name="runtimes">
-        <list />
-      </option>
       <option name="selectedOptions">
         <list />
       </option>
@@ -99,9 +119,6 @@
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
       <option name="projectPathOnTarget" />
-      <option name="runtimes">
-        <list />
-      </option>
       <option name="selectedOptions">
         <list />
       </option>
@@ -132,14 +149,13 @@
       <workItem from="1745578807912" duration="1204000" />
       <workItem from="1745582419110" duration="6367000" />
       <workItem from="1746106555360" duration="5051000" />
-      <workItem from="1746196660926" duration="4082000" />
-      <workItem from="1746272864611" duration="4023000" />
-      <workItem from="1746285657097" duration="5114000" />
-      <workItem from="1746302182179" duration="7753000" />
-      <workItem from="1746462393613" duration="5693000" />
-      <workItem from="1746515788374" duration="761000" />
-      <workItem from="1746625424923" duration="2324000" />
-      <workItem from="1747058026448" duration="7555000" />
+      <workItem from="1746274035429" duration="13000" />
+      <workItem from="1746274125048" duration="6273000" />
+      <workItem from="1746516074385" duration="659000" />
+      <workItem from="1746867993187" duration="3447000" />
+      <workItem from="1746875517012" duration="7003000" />
+      <workItem from="1746965621955" duration="206000" />
+      <workItem from="1746989547300" duration="2382000" />
     </task>
     <servers />
   </component>
@@ -147,11 +163,6 @@
     <option name="version" value="3" />
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
-  <component name="UnityProjectDiscoverer">
-    <option name="hasUnityReference" value="true" />
-    <option name="unityProject" value="true" />
-    <option name="unityProjectFolder" value="true" />
-  </component>
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
