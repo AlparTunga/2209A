@@ -9,31 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Demo Scenes/Menu.unity
     guid: 0cbb4b96474831049aa5aa084b13ffce
   - enabled: 1
-    path: Assets/Scenes/Demo Scenes/OK/Race.unity
-    guid: 7ccee54a0220b3545b4d6ef804a6504c
-  - enabled: 1
-    path: Assets/Scenes/Demo Scenes/OK/tork.unity
-    guid: a8f1fc9f420516c458bbafc188388ba8
-  - enabled: 1
-    path: Assets/Scenes/Demo Scenes/OK/Pulley.unity
-    guid: e72682b2f006f06488bb0f4b8cc60aa3
-  - enabled: 1
-    path: Assets/Scenes/Demo Scenes/OK/PendulumScene.unity
-    guid: 09b9c8d0c16dad24f9cac5c1fbd626a8
-  - enabled: 1
-    path: Assets/Scenes/Demo Scenes/OK/Car Breaking On Ramp.unity
-    guid: e8543792df670b0479653915c4dd3de8
+    path: Assets/Scenes/Demo Scenes/deleted/Bouncy Balls.unity
+    guid: cb83133c77b4de0498965a9f6341026b
   - enabled: 1
     path: Assets/Scenes/Demo Scenes/OK/Sliding Boxes.unity
     guid: e7335ea77b66d5647838c7e4d3d5b060
-  - enabled: 1
-    path: Assets/Scenes/Demo Scenes/OK/SampleScene.unity
-    guid: 6f4de5ee907db2b4e9ee020d7bf4b871
-  - enabled: 1
-    path: Assets/Scenes/Demo Scenes/OK/Spinning Objects.unity
-    guid: a243c139748122343b7963593f8d5c8d
-  - enabled: 1
-    path: Assets/Scenes/Demo Scenes/OK/ContainerScene.unity
-    guid: d83a55e214ff7cb46a67e69bff727043
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

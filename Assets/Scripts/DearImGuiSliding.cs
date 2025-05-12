@@ -1,56 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using ImGuiNET;
-using System.Collections.Generic;
 
 public class DearImGuiSliding : MonoBehaviour
 {
-    [Header("References")]
-    public GameObject[] boxes;              
-    public PhysicMaterial[] materials;      
+    public GameObject[] boxes; // Kutuların referansları
+    public PhysicMaterial[] materials; // Fizik materyallerinin referansları
+    private static GameObject selectedBox; // Şu an seçili olan kutu
+    private static PhysicMaterial selectedMaterial; // Seçili materyal
+    private static float forceOnBox = 25f; // Varsayılan kuvvet değeri
 
-    private static GameObject selectedBox;          
-    private static PhysicMaterial selectedMaterial;
-    private static float forceOnBox = 25f;          
-
-    private Vector3[] initialPositions;
-    private float[] initialMasses, initialDrags, initialAngularDrags;
-    private float[] initialStaticFrictions, initialDynamicFrictions;
-    private List<Rigidbody> boxRigidbodies = new List<Rigidbody>();
+    private List<Rigidbody> boxRigidbodies; // Kutuların Rigidbody bileşenleri
     private bool applyForce;
+    private static bool isLayoutRegistered = false; // Layout'un birden fazla kez kaydedilmesini önlemek için
 
-    private float objectSpeed, requiredForceToMove, dynamicFrictionForce, netForce;
-    private static bool isLayoutRegistered = false;
-
-    private bool showIntro = true;
+    private float objectSpeed = 0f; // Kutunun anlık hızı
+    private float requiredForceToMove = 0f; // Hareket etmek için gereken minimum kuvvet
+    private float dynamicFrictionForce = 0f; // Dinamik sürtünmenin yavaşlatıcı etkisi
+    private float netForce = 0f; // Net kuvvet
+    private const float gravity = 9.81f; // Yerçekimi ivmesi
 
     void Start()
     {
-        int count = boxes.Length;
-        initialPositions        = new Vector3[count];
-        initialMasses           = new float[count];
-        initialDrags            = new float[count];
-        initialAngularDrags     = new float[count];
-        initialStaticFrictions  = new float[count];
-        initialDynamicFrictions = new float[count];
-
-        for (int i = 0; i < count; i++)
+        boxRigidbodies = new List<Rigidbody>();
+        
+        foreach (var box in boxes)
         {
-            if (boxes[i] != null)
+            if (box != null && box.GetComponent<Rigidbody>() != null)
             {
-                initialPositions[i] = boxes[i].transform.position;
-                var rb = boxes[i].GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    boxRigidbodies.Add(rb);
-                    initialMasses[i]       = rb.mass;
-                    initialDrags[i]        = rb.drag;
-                    initialAngularDrags[i] = rb.angularDrag;
-                }
-                initialStaticFrictions[i]  = materials[i].staticFriction;
-                initialDynamicFrictions[i] = materials[i].dynamicFriction;
+                boxRigidbodies.Add(box.GetComponent<Rigidbody>());
             }
         }
+    }
 
+    void OnEnable()
+    {
         if (!isLayoutRegistered)
         {
             ImGuiUn.Layout += OnLayout;
@@ -58,7 +43,7 @@ public class DearImGuiSliding : MonoBehaviour
         }
     }
 
-    void OnDestroy()
+    void OnDisable()
     {
         if (isLayoutRegistered)
         {
@@ -71,15 +56,21 @@ public class DearImGuiSliding : MonoBehaviour
     {
         if (applyForce && selectedBox != null)
         {
-            var rb = selectedBox.GetComponent<Rigidbody>();
+            Rigidbody rb = selectedBox.GetComponent<Rigidbody>();
             if (rb != null)
+            {
                 rb.AddForce(new Vector3(forceOnBox, 0, 0));
+            }
         }
+
         if (selectedBox != null)
         {
-            var rb = selectedBox.GetComponent<Rigidbody>();
+            Rigidbody rb = selectedBox.GetComponent<Rigidbody>();
             if (rb != null)
+            {
                 objectSpeed = rb.velocity.magnitude;
+                netForce = forceOnBox - dynamicFrictionForce;
+            }
         }
     }
 
@@ -87,140 +78,94 @@ public class DearImGuiSliding : MonoBehaviour
     {
         if (selectedMaterial != null && selectedBox != null)
         {
-            var rb = selectedBox.GetComponent<Rigidbody>();
+            Rigidbody rb = selectedBox.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                requiredForceToMove  = selectedMaterial.staticFriction  * rb.mass * Physics.gravity.magnitude;
-                dynamicFrictionForce = selectedMaterial.dynamicFriction * rb.mass * Physics.gravity.magnitude;
-                netForce             = forceOnBox - dynamicFrictionForce;
+                requiredForceToMove = selectedMaterial.staticFriction * rb.mass * gravity;
+                dynamicFrictionForce = selectedMaterial.dynamicFriction * rb.mass * gravity;
+                netForce = forceOnBox - dynamicFrictionForce;
             }
         }
-    }
-
-    void ResetSelectedBox()
-    {
-        if (selectedBox == null) return;
-        int index = System.Array.IndexOf(boxes, selectedBox);
-        if (index < 0) return;
-
-        selectedBox.transform.position = initialPositions[index];
-        var rb = selectedBox.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.velocity         = Vector3.zero;
-            rb.angularVelocity  = Vector3.zero;
-            rb.mass             = initialMasses[index];
-            rb.drag             = initialDrags[index];
-            rb.angularDrag      = initialAngularDrags[index];
-        }
-
-        materials[index].staticFriction  = initialStaticFrictions[index];
-        materials[index].dynamicFriction = initialDynamicFrictions[index];
-
-        forceOnBox = 25f;
-        applyForce = false;
-        CalculateFrictionForces();
     }
 
     void OnLayout()
     {
-        ImGuiWindowFlags flags = ImGuiWindowFlags.AlwaysAutoResize;
-
-        // --- GIRIS EKRANI ---
-        if (showIntro)
+        if (ImGui.Begin("Fizik Özellikleri"))
         {
-            ImGui.Begin("Surutme ve Hareket - Giris", flags);
+            ImGui.Text("Bir Kutu Seçin:");
+            ImGui.Separator();
 
-            ImGui.TextWrapped("Bir cismin harekete gecmesi icin statik surutme yenilmelidir.");
-            ImGui.TextWrapped("Hareket halindeyken dinamik surutme cisme etki eder.");
-
-            ImGui.BulletText("F_statik  = mu_s * m * g  (Statik surutme)");
-            ImGui.BulletText("F_dinamik = mu_k * m * g  (Dinamik surutme)");
-            ImGui.BulletText("F_net     = F_uygulanan - F_dinamik");
+            for (int i = 0; i < boxes.Length; i++)
+            {
+                if (boxes[i] != null)
+                {
+                    if (ImGui.RadioButton($"Seç {boxes[i].name}", selectedBox == boxes[i]))
+                    {
+                        selectedBox = boxes[i];
+                        selectedMaterial = materials[i];
+                        CalculateFrictionForces();
+                    }
+                }
+            }
 
             ImGui.Separator();
-            if (ImGui.Button("Devam Et"))
-                showIntro = false;
 
-            ImGui.End();
-            return;
-        }
-
-        // --- ANA PANEL ---
-        ImGui.Begin("Fizik Ozellikleri", flags);
-
-        ImGui.Text("Bir Kutu Secin:");
-        ImGui.Separator();
-
-        for (int i = 0; i < boxes.Length; i++)
-        {
-            if (boxes[i] != null && materials[i] != null)
+            if (selectedBox != null && selectedMaterial != null)
             {
-                if (ImGui.RadioButton($"Sec {boxes[i].name}", selectedBox == boxes[i]))
+                Rigidbody rb = selectedBox.GetComponent<Rigidbody>();
+                ImGui.Text($"Seçili Kutu: {selectedBox.name}");
+                ImGui.SliderFloat("Uygulanan Kuvvet", ref forceOnBox, 0f, 100f);
+                
+                float mass = rb.mass;
+                if (ImGui.SliderFloat("Kütle", ref mass, 0.1f, 100f))
                 {
-                    selectedBox     = boxes[i];
-                    selectedMaterial= materials[i];
+                    rb.mass = mass;
                     CalculateFrictionForces();
+                }
+                
+                float drag = rb.drag;
+                if (ImGui.SliderFloat("Hava Direnci (Drag)", ref drag, 0f, 5f))
+                    rb.drag = drag;
+                
+                float angularDrag = rb.angularDrag;
+                if (ImGui.SliderFloat("Dönme Direnci (Angular Drag)", ref angularDrag, 0f, 5f))
+                    rb.angularDrag = angularDrag;
+                
+                float staticFriction = selectedMaterial.staticFriction;
+                if (ImGui.SliderFloat("Statik Sürtünme", ref staticFriction, 0f, 1f))
+                {
+                    selectedMaterial.staticFriction = staticFriction;
+                    materials[System.Array.IndexOf(materials, selectedMaterial)].staticFriction = staticFriction;
+                    CalculateFrictionForces();
+                }
+                
+                float dynamicFriction = selectedMaterial.dynamicFriction;
+                if (ImGui.SliderFloat("Dinamik Sürtünme", ref dynamicFriction, 0f, 1f))
+                {
+                    selectedMaterial.dynamicFriction = dynamicFriction;
+                    materials[System.Array.IndexOf(materials, selectedMaterial)].dynamicFriction = dynamicFriction;
+                    CalculateFrictionForces();
+                }
+
+                ImGui.Separator();
+                ImGui.Text("Gerçek Zamanlı Veriler:");
+                ImGui.Text($"Hız: {objectSpeed:F2} m/s");
+                ImGui.Text($"Hareket İçin Gerekli Kuvvet: {requiredForceToMove:F2} N");
+                ImGui.Text($"Dinamik Sürtünme Kuvveti (Yavaşlatıcı Etki): {dynamicFrictionForce:F2} N");
+                ImGui.Text($"Net Kuvvet: {netForce:F2} N");
+                ImGui.Text(forceOnBox >= requiredForceToMove ? "Durum: Hareket Ediyor" : "Durum: Durduruldu");
+                
+                if (ImGui.Button("Kuvvet Uygula"))
+                {
+                    applyForce = true;
+                }
+
+                if (ImGui.Button("Kuvveti Durdur"))
+                {
+                    applyForce = false;
                 }
             }
         }
-
-        ImGui.Separator();
-        if (selectedBox != null && selectedMaterial != null)
-        {
-            var rb = selectedBox.GetComponent<Rigidbody>();
-
-            ImGui.Text($"Secili Kutu: {selectedBox.name}");
-            ImGui.SliderFloat("Uygulanan Kuvvet", ref forceOnBox, 0f, 100f);
-
-            float massLocal = rb.mass;
-            if (ImGui.SliderFloat("Kutle", ref massLocal, 0.1f, 100f))
-            {
-                rb.mass = massLocal;
-                CalculateFrictionForces();
-            }
-
-            float dragLocal = rb.drag;
-            if (ImGui.SliderFloat("Hava Direnci (Drag)", ref dragLocal, 0f, 5f))
-                rb.drag = dragLocal;
-
-            float angularDragLocal = rb.angularDrag;
-            if (ImGui.SliderFloat("Aci Direnci (Angular Drag)", ref angularDragLocal, 0f, 5f))
-                rb.angularDrag = angularDragLocal;
-
-            float staticFrictionLocal = selectedMaterial.staticFriction;
-            if (ImGui.SliderFloat("Statik Surutme", ref staticFrictionLocal, 0f, 1f))
-            {
-                selectedMaterial.staticFriction = staticFrictionLocal;
-                materials[System.Array.IndexOf(materials, selectedMaterial)].staticFriction = staticFrictionLocal;
-                CalculateFrictionForces();
-            }
-
-            float dynamicFrictionLocal = selectedMaterial.dynamicFriction;
-            if (ImGui.SliderFloat("Dinamik Surutme", ref dynamicFrictionLocal, 0f, 1f))
-            {
-                selectedMaterial.dynamicFriction = dynamicFrictionLocal;
-                materials[System.Array.IndexOf(materials, selectedMaterial)].dynamicFriction = dynamicFrictionLocal;
-                CalculateFrictionForces();
-            }
-
-            ImGui.Separator();
-            ImGui.Text("Gercek Zamanli Veriler:");
-            ImGui.Text($"Hiz:                     {objectSpeed:F2} m/s");
-            ImGui.Text($"Gerekli Kuvvet:          {requiredForceToMove:F2} N");
-            ImGui.Text($"Dinamik Surutme Kuvveti: {dynamicFrictionForce:F2} N");
-            ImGui.Text($"Net Kuvvet:              {netForce:F2} N");
-
-            if (ImGui.Button("Kuvveti Uygula"))
-                applyForce = true;
-            ImGui.SameLine();
-            if (ImGui.Button("Kuvveti Durdur"))
-                applyForce = false;
-            ImGui.SameLine();
-            if (ImGui.Button("Sifirla"))
-                ResetSelectedBox();
-        }
-
         ImGui.End();
     }
 }
