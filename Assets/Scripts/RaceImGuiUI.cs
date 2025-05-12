@@ -81,11 +81,11 @@ public class RaceImGuiUI : MonoBehaviour
         if (!raceManager.IsRaceTriggered())
         {
             ImGui.Text("Yaris Ayarlari:");
-            if (ImGui.SliderFloat("Arac 1 Hiz", ref speed1, 0f, 20f))
-                raceManager.car1.speed = speed1;
-
-            if (ImGui.SliderFloat("Arac 2 Hiz", ref speed2, 0f, 20f))
+            if (ImGui.SliderFloat("Arac 1 Hiz", ref speed2, 0f, 20f)) // yer degisti
                 raceManager.car2.speed = speed2;
+
+            if (ImGui.SliderFloat("Arac 2 Hiz", ref speed1, 0f, 20f)) // yer degisti
+                raceManager.car1.speed = speed1;
 
             if (ImGui.SliderFloat("Mesafe", ref distance, 10f, 500f))
             {
@@ -110,15 +110,16 @@ public class RaceImGuiUI : MonoBehaviour
                 ImGui.Separator();
 
                 ImGui.Text("Arac 1");
-                ImGui.Text($"Zaman: {raceManager.car1.GetElapsedTime():F1} s");
-                ImGui.Text($"Hiz: {raceManager.car1.speed} m/s");
-                ImGui.Text($"Yol: {raceManager.car1.GetDistanceTravelled():F2} m");
-
-                ImGui.Separator();
-                ImGui.Text("Arac 2");
                 ImGui.Text($"Zaman: {raceManager.car2.GetElapsedTime():F1} s");
                 ImGui.Text($"Hiz: {raceManager.car2.speed} m/s");
                 ImGui.Text($"Yol: {raceManager.car2.GetDistanceTravelled():F2} m");
+
+                ImGui.Separator();
+
+                ImGui.Text("Arac 2");
+                ImGui.Text($"Zaman: {raceManager.car1.GetElapsedTime():F1} s");
+                ImGui.Text($"Hiz: {raceManager.car1.speed} m/s");
+                ImGui.Text($"Yol: {raceManager.car1.GetDistanceTravelled():F2} m");
             }
 
             if (raceManager.IsRaceFinished())
@@ -134,4 +135,5 @@ public class RaceImGuiUI : MonoBehaviour
             raceManager.ResetRace();
         }
     }
+
 }

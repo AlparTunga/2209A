@@ -3,11 +3,11 @@ using ImGuiNET;
 
 public class TorqueImGuiUI : MonoBehaviour
 {
-    [Header("Spawner & Slot’lar")]
+    [Header("Spawner & Slotlar")]
     public WeightSpawner weightSpawner;
-    public Transform[] slotTransforms;    // Slot_-3 … Slot_+3
+    public Transform[] slotTransforms;
 
-    [Header("Torque Hesabı")]
+    [Header("Torque Hesabi")]
     public Transform seesawTransform;
     public Renderer seesawRenderer;
     public float gravity = 9.81f;
@@ -24,7 +24,6 @@ public class TorqueImGuiUI : MonoBehaviour
         var io = ImGui.GetIO();
         Vector2 screenSize = io.DisplaySize;
 
-        // ▶ Intro Ekranı
         if (!introComplete)
         {
             Vector2 introSize = new Vector2(480, 240);
@@ -35,7 +34,7 @@ public class TorqueImGuiUI : MonoBehaviour
             introAlpha = Mathf.Clamp01(introAlpha + Time.deltaTime * introFadeSpeed);
             ImGui.PushStyleVar(ImGuiStyleVar.Alpha, introAlpha);
 
-            ImGui.Begin("Torque Girişi", ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove);
+            ImGui.Begin("Torque Girisi", ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove);
 
             ImGui.TextWrapped("Bu sahne, tahterevalli uzerinde agirliklarin tork etkisini anlaman icin hazirlandi.");
             ImGui.Spacing();
@@ -53,17 +52,27 @@ public class TorqueImGuiUI : MonoBehaviour
             return;
         }
 
-        // ◀ Oyun Kontrolleri (sol üst)
         ImGui.SetNextWindowPos(new Vector2(10, 10), ImGuiCond.FirstUseEver);
-        ImGui.Begin("Oyun Kontrolleri");
+        ImGui.Begin("Oyun Kontrolleri", ImGuiWindowFlags.AlwaysAutoResize);
 
         if (ImGui.Button("Spawn Block"))
             weightSpawner.SpawnBlock();
 
+        float boardLength = seesawRenderer.GetComponent<MeshFilter>().sharedMesh.bounds.size.x * seesawTransform.localScale.x;
+        ImGui.Text($"Tahta Uzunlugu: {boardLength:F2} m");
+
+        ImGui.Text("Slotlar merkeze uzakliklari:");
+        foreach (var slot in slotTransforms)
+        {
+            float dx = Mathf.Abs(seesawTransform.InverseTransformPoint(slot.position).x);
+            ImGui.Text($"{slot.name}: {dx:F2} m");
+        }
+
         var current = WeightSpawner.currentBlock;
         if (current != null)
         {
-            ImGui.Text($"Seçili: {current.gameObject.name}");
+            ImGui.Separator();
+            ImGui.Text($"Secili: {current.gameObject.name}");
             ImGui.Separator();
 
             foreach (var slot in slotTransforms)
@@ -72,29 +81,17 @@ public class TorqueImGuiUI : MonoBehaviour
                 foreach (var b in FindObjectsOfType<MassBlock>())
                     if (b.HasBeenPlaced() && b.transform.parent == slot)
                     { occ = true; break; }
-
-                if (!occ && ImGui.Button($"Place on {slot.name}"))
-                    WeightSpawner.PlaceCurrentBlock(slot);
-                else
-                {
-                    ImGui.PushStyleVar(ImGuiStyleVar.Alpha, 0.5f);
-                    ImGui.Button($"Place on {slot.name}");
-                    ImGui.PopStyleVar();
-                }
             }
         }
         ImGui.End();
 
-        // ▶ Denklem Paneli (sol alt)
-        ImGui.SetNextWindowPos(new Vector2(10, 250), ImGuiCond.Always);
-        ImGui.SetNextWindowSize(new Vector2(250, 60), ImGuiCond.Always);
-        ImGui.Begin("Tork Denklemi", ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse);
+        ImGui.SetNextWindowPos(new Vector2(10, 400), ImGuiCond.Always);
+        ImGui.Begin("Tork Denklemi", ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoCollapse);
         ImGui.Text("Tork = Kuvvet x Kol uzunlugu");
         ImGui.End();
 
-        // ▶ Torque Bilgileri (sağ üst)
         ImGui.SetNextWindowPos(new Vector2(screenSize.x - 10, 10), ImGuiCond.FirstUseEver, new Vector2(1f, 0f));
-        ImGui.Begin("Torque Bilgileri");
+        ImGui.Begin("Torque Bilgileri", ImGuiWindowFlags.AlwaysAutoResize);
 
         float left = 0f, right = 0f;
         foreach (var b in FindObjectsOfType<MassBlock>())
@@ -111,6 +108,12 @@ public class TorqueImGuiUI : MonoBehaviour
         ImGui.Text($"Right Torque:  {right:F2} Nm");
         ImGui.Text($"Difference:    {diff:F2} Nm");
 
+        ImGui.End();
+
+        // Kuvvet Formulu Penceresi (sol alt daha asagida)
+        ImGui.SetNextWindowPos(new Vector2(screenSize.x - 10, screenSize.y - 10), ImGuiCond.Always, new Vector2(1f, 1f));
+        ImGui.Begin("Kuvvet Formulu", ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoCollapse);
+        ImGui.Text("Kuvvet = Yercekimi=9,81 x Agirlik");
         ImGui.End();
     }
 }
